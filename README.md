@@ -8,6 +8,8 @@ Fue creado durante mis momentos de descanso en el Instituto Politécnico de Form
 
 El objetivo principal de este proyecto es proporcionar una solución de chatbot basada en la voz, lo que permite una interacción más natural y conveniente con los usuarios. Con este chatbot, podrás realizar diversas tareas, como obtener información, realizar consultas o ejecutar comandos, simplemente utilizando tu voz.
 
+¡Necesita conexion a internet en todo momento!
+
 ## Cómo utilizarlo
 
 Sigue los pasos a continuación para utilizar el chatbot de reconocimiento de voz:
