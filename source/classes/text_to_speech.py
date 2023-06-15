@@ -11,7 +11,8 @@ class VoiceRecognitionModule:
             print("Speak Anything : ")
             audio = self.r.listen(source)
             try:
-                text = self.r.recognize_google(audio, key=self.key, language="es")
+                text = self.r.recognize_google(
+                    audio, key=self.key, language="es")
                 return text
             except:
                 return None

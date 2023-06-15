@@ -26,7 +26,8 @@ class ChatbotBrain:
             sentiment_analisis (bool, optional):
         """
 
-        self.generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
+        self.generator = pipeline(
+            "text-generation", model=model, tokenizer=tokenizer)
 
         self.translate = translate
         self.context = context
@@ -51,14 +52,16 @@ class ChatbotBrain:
             self.tokenizer_en_t_es = MarianTokenizer.from_pretrained(
                 self.model_name_en_t_es
             )
-            self.model_en_t_es = MarianMTModel.from_pretrained(self.model_name_en_t_es)
+            self.model_en_t_es = MarianMTModel.from_pretrained(
+                self.model_name_en_t_es)
 
             # ESP -> ENGLISH
             self.model_name_es_t_en = "Helsinki-NLP/opus-mt-ROMANCE-en"
             self.tokenizer_es_t_en = MarianTokenizer.from_pretrained(
                 self.model_name_es_t_en
             )
-            self.model_es_t_en = MarianMTModel.from_pretrained(self.model_name_es_t_en)
+            self.model_es_t_en = MarianMTModel.from_pretrained(
+                self.model_name_es_t_en)
 
     def english_to_spanish(self, text):
         """English to spanish translation
@@ -138,7 +141,8 @@ class ChatbotBrain:
             str: post processed response string
         """
         ask = ask.strip()
-        search = re.findall(r"(([A-Z0-9]+\.)+[A-Z0-9]+)", ask, flags=re.IGNORECASE)
+        search = re.findall(r"(([A-Z0-9]+\.)+[A-Z0-9]+)",
+                            ask, flags=re.IGNORECASE)
         for match in search:
             ask = ask.replace(match[0], "")
 
@@ -204,7 +208,8 @@ class ChatbotBrain:
         # Translate to spanish
         if self.translate:
             generated_text = self.english_to_spanish(generated_text)
-            generated_text = self.replace_translation_artifacts_en_sp(generated_text)
+            generated_text = self.replace_translation_artifacts_en_sp(
+                generated_text)
 
         if self.sentiment_analisis:
             return generated_text, sentiment

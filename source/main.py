@@ -1,60 +1,45 @@
-#-----------------------------------------------------
+# -----------------------------------------------------
 # ASISTENTE VIRTUAL POR VOZ
 # IPF
 # 2023 - FORMOSA, ARGENTINA
-#-----------------------------------------------------
+# -----------------------------------------------------
 
-#use google speech recognition to this project
-#most accesible tool of this type. Free public api 
+# use google speech recognition to this project
+# most accesible tool of this type. Free public api
 
-
-
-
-import pyttsx3
 import time
-import speech_recognition as sr
+from classes.speech_to_text import SpeechModule
+from classes.text_to_speech import VoiceRecognitionModule
+from classes.chatbot_brain import ChatbotBrain
 
-engine = pyttsx3.init()
-r = sr.Recognizer()
+context = """who are you?
+My name is Pequenin, I'm a robot from the future, I'm trapped \
+in a teddy bear, I hate people and I love to wet people, Hector \
+Pulido is my master, I am very grumpy, and I'm in the Hector twitch chat"""
 
+translation_artifacts_english = {"Disagreement": "Discord"}
 
-#Speech Module
-class SpeechModule:
-    def __init__(self, voice=0, volume=1, rate=120):
-        self.engine = pyttsx3.init()
-        self.engine.setProperty('rate', rate)
-        self.engine.setProperty('volume', volume)
-        voices = self.engine.getProperty('voices')
-        self.engine.setProperty('voice', voices[voice].id)
-        
-    def talk(self, text):
-        self.engine.say(text)
-        self.engine.runAndWait()
+translation_artifacts_spanish = {
+    "pequenina": "Pequeñin",
+    "osito de peluche": "Oso Teddy",
+    "profesor": "Maestro",
+}
+chatbot = ChatbotBrain(
+    context,
+    translation_artifacts_english,
+    translation_artifacts_spanish,
+    "microsoft/DialoGPT-large",
+    "microsoft/DialoGPT-large",
+    True,
+    True,
+)
 
-
-#Voice recognition module
-class VoiceRecognitionModule:
-    def __init__(self, key=None):
-        #aqui va la key de la API de google speech recognition
-        self.key = key
-        self.r = sr.Recognizer()
-    
-    def recognize(self):
-        with sr.Microphone() as source:
-            print("Di algo ahora! :")
-        audio = self.r.listen(source)
-        try: 
-            text = self.r.recognize_google(audio,key=self, language="es") 
-            return text 
-        except: 
-              return None
-
-speech= SpeechModule()
-text= VoiceRecognitionModule()
-
+speech = SpeechModule()
+recognition = VoiceRecognitionModule()
 
 while True:
     text = recognition.recognize()
+
     if text:
         chatbot_text = chatbot.talk(text)
         speech.talk(chatbot_text)
