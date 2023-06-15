@@ -52,8 +52,12 @@ class VoiceRecognitionModule:
 speech= SpeechModule()
 text= VoiceRecognitionModule()
 
+
 while True:
     text = recognition.recognize()
     if text:
-        speech.talk(text)
+        chatbot_text = chatbot.talk(text)
+        speech.talk(chatbot_text)
+    else:
+        speech.talk("No te he entendido")
     time.sleep(1)
