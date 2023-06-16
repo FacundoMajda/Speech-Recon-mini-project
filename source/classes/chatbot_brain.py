@@ -2,6 +2,10 @@ import re
 from transformers import pipeline, set_seed, MarianMTModel, MarianTokenizer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
+# Esta version está deprecada
+# TODO: update this: DEPRECATED
+# prepare_seq2seq_batch
+
 
 class ChatbotBrain:
     def __init__(
